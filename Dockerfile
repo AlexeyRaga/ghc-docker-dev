@@ -1,6 +1,6 @@
 # mount the GHC source code into /home/ghc
 #
-#    sudo docker run --rm -i -t -v `pwd`:/home/ghc gregweber/ghc-haskell-dev /bin/bash
+#    sudo docker run --rm -i -t -v `pwd`:/home/ghc alexeyraga/ghc-haskell-dev /bin/bash
 #
 # There is one final setup step to run once you have the image up:
 #
@@ -16,7 +16,7 @@
 # https://ghc.haskell.org/trac/ghc/wiki/Building/Hacking
 
 FROM debian:testing
-MAINTAINER Greg Weber
+MAINTAINER Alexey Raga
 
 ## add ppa for ubuntu trusty haskell packages
 # from darinmorrison/haskell
@@ -28,12 +28,12 @@ RUN apt-get update && apt-get install -y \
  # from darinmorrison/haskell, related to ncurses, not sure if it is needed
  libtinfo5 \
  # mentioned on the GHC wiki
- autoconf automake libtool make libgmp-dev ncurses-dev g++ llvm python bzip2 ca-certificates \
+ autoconf automake libtool make libgmp-dev ncurses-dev g++ llvm-3.4-dev python bzip2 ca-certificates \
  ## install minimal set of haskell packages
  # from darinmorrison/haskell
- ghc-7.8.3 \
+ ghc-7.8.4 \
  alex \
- cabal-install-1.20 \
+ cabal-install-1.22 \
  happy \
  # development conveniences
  sudo xutils-dev \
@@ -63,4 +63,4 @@ ENV HOME /home/ghc
 WORKDIR /home/ghc
 USER ghc
 
-ENV PATH /opt/ghc/7.8.3/bin:/php/arcanist/bin:$PATH 
+ENV PATH /opt/ghc/7.8.4/bin:/php/arcanist/bin:$PATH 
