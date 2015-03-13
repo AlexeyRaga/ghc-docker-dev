@@ -25,6 +25,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F6F88286 \
  && echo 'deb-src http://ppa.launchpad.net/hvr/ghc/ubuntu trusty main' >> /etc/apt/sources.list.d/haskell.list
 
 RUN apt-get update && apt-get install -y \
+ wget \
  # from darinmorrison/haskell, related to ncurses, not sure if it is needed
  libtinfo5 \
  # mentioned on the GHC wiki
