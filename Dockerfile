@@ -26,6 +26,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F6F88286 \
 
 RUN apt-get update && apt-get install -y \
  wget \
+ xz-utils \
  # from darinmorrison/haskell, related to ncurses, not sure if it is needed
  libtinfo5 \
  # mentioned on the GHC wiki
