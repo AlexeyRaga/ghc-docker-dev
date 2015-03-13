@@ -39,6 +39,23 @@ RUN apt-get update && apt-get install -y \
  sudo xutils-dev \
  && apt-get clean
 
+ RUN \ 
+ 	mkdir -p /opt/toolchain \
+ 	wget http://dn.odroid.com/toolchains/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz \
+ 	tar xJf gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz -C /opt/toolchain \
+ 	rm *.tar.xz \
+ 	ln -s /opt/toolchain/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux /opt/toolchain/gcc-linaro-arm-linux-gnueabihf
+
+RUN \
+	export PATH=/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH \
+	mkdir -p /opt/ncurses \
+	wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz \
+	tar zxf ncurses-5.9.tar.gz -C /opt/ncurses/ \
+	rm *.tar.gz \
+	cd /opt/ncurses/ncurses-5.9
+
+
+
 # arc tool
 # It makes a lot more sense to run this from your host
 RUN apt-get update && apt-get install -y \
@@ -63,4 +80,4 @@ ENV HOME /home/ghc
 WORKDIR /home/ghc
 USER ghc
 
-ENV PATH /opt/ghc/7.8.4/bin:/php/arcanist/bin:$PATH 
+ENV PATH /opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:/opt/ghc/7.8.4/bin:/php/arcanist/bin:$PATH 
