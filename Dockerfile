@@ -18,6 +18,11 @@
 FROM debian:testing
 MAINTAINER Alexey Raga
 
+ADD ./01_nodoc /etc/dpkg/dpkg.cfg.d/01_nodoc
+ADD ./02nocache /etc/apt/apt.conf.d/02nocache
+ADD ./clean.sh /usr/local/bin/clean.sh
+RUN chown root.root /usr/local/bin/clean.sh && chmod 700 /usr/local/bin/clean.sh
+
 ## add ppa for ubuntu trusty haskell packages
 # from darinmorrison/haskell
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F6F88286 \
@@ -39,7 +44,8 @@ RUN apt-get update && apt-get install -y \
  happy \
  # development conveniences
  sudo xutils-dev \
- && apt-get clean
+ && apt-get clean \
+ && /usr/local/bin/clean.sh
 
  RUN \ 
  	mkdir -p /opt/toolchain \
@@ -50,11 +56,13 @@ RUN apt-get update && apt-get install -y \
 
 RUN \
 	export PATH=/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH \
-	&& mkdir -p /opt/ncurses \
+	&& mkdir -p /opt/toolchain/ncurses \
 	&& wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz \
-	&& tar zxf ncurses-5.9.tar.gz -C /opt/ncurses/ \
+	&& tar zxf ncurses-5.9.tar.gz -C /opt/toolchain/ncurses/ \
 	&& rm *.tar.gz \
-	&& cd /opt/ncurses/ncurses-5.9
+	&& cd /opt/toolchain/ncurses/ncurses-5.9
+	&& ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --with-shared --host=arm-linux-gnueabihf --with-build-cpp=arm-linux-gnueabihf-g++
+	&& make
 
 
 
@@ -70,7 +78,8 @@ RUN mkdir /php && cd /php \
 # for building the ghc manual
 #RUN apt-get update \
 # && apt-get install -y dblatex docbook-xsl docbook-utils \
-# && apt-get clean
+# && apt-get clean \
+# && /usr/local/bin/clean.sh
 
 ENV LANG     C.UTF-8
 ENV LC_ALL   C.UTF-8
