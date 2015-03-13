@@ -43,18 +43,18 @@ RUN apt-get update && apt-get install -y \
 
  RUN \ 
  	mkdir -p /opt/toolchain \
- 	wget http://dn.odroid.com/toolchains/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz \
- 	tar xJf gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz -C /opt/toolchain \
- 	rm *.tar.xz \
- 	ln -s /opt/toolchain/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux /opt/toolchain/gcc-linaro-arm-linux-gnueabihf
+ 	&& wget http://dn.odroid.com/toolchains/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz \
+ 	&& tar xJf gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz -C /opt/toolchain \
+ 	&& rm *.tar.xz \
+ 	&& ln -s /opt/toolchain/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux /opt/toolchain/gcc-linaro-arm-linux-gnueabihf
 
 RUN \
 	export PATH=/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH \
-	mkdir -p /opt/ncurses \
-	wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz \
-	tar zxf ncurses-5.9.tar.gz -C /opt/ncurses/ \
-	rm *.tar.gz \
-	cd /opt/ncurses/ncurses-5.9
+	&& mkdir -p /opt/ncurses \
+	&& wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz \
+	&& tar zxf ncurses-5.9.tar.gz -C /opt/ncurses/ \
+	&& rm *.tar.gz \
+	&& cd /opt/ncurses/ncurses-5.9
 
 
 
