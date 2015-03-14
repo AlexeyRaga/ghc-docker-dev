@@ -30,6 +30,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F6F88286 \
  && echo 'deb-src http://ppa.launchpad.net/hvr/ghc/ubuntu trusty main' >> /etc/apt/sources.list.d/haskell.list
 
 RUN apt-get update && apt-get install -y \
+ libc6-i386 lib32stdc++6 lib32ncurses5 zlib1g lib32gcc1 \
  wget \
  xz-utils \
  # from darinmorrison/haskell, related to ncurses, not sure if it is needed
@@ -61,8 +62,8 @@ RUN \
 	&& tar zxf ncurses-5.9.tar.gz -C /opt/toolchain/ncurses/ \
 	&& rm *.tar.gz \
 	&& cd /opt/toolchain/ncurses/ncurses-5.9
-	&& ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --with-shared --host=arm-linux-gnueabihf --with-build-cpp=arm-linux-gnueabihf-g++
-	&& make
+	&& ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --with-shared --host=arm-linux-gnueabihf --with-build-cpp=arm-linux-gnueabihf-g++ --prefix=/opt/arm
+	&& make && make install
 
 
 
