@@ -61,8 +61,8 @@ RUN \
 	&& wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz \
 	&& tar zxf ncurses-5.9.tar.gz -C /opt/toolchain/ncurses/ \
 	&& rm *.tar.gz \
-	&& cd /opt/toolchain/ncurses/ncurses-5.9
-	&& ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --with-shared --host=arm-linux-gnueabihf --with-build-cpp=arm-linux-gnueabihf-g++ --prefix=/opt/arm
+	&& cd /opt/toolchain/ncurses/ncurses-5.9 \
+	&& ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --with-shared --host=arm-linux-gnueabihf --with-build-cpp=arm-linux-gnueabihf-g++ --prefix=/opt/arm \
 	&& make && make install
 
 
