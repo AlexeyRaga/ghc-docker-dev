@@ -29,7 +29,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F6F88286 \
 RUN apt-get update \
  && apt-get install ${OPTS_APT} \
  			wget xz-utils git \
- 			libtinfo5 libgmp-dev ncurses-dev
+ 			libtinfo5 libgmp-dev ncurses-dev \
  			autoconf automake libtool make g++ llvm-3.4-dev python bzip2 ca-certificates \
  			ghc-7.8.4 \
  			alex \
@@ -66,4 +66,4 @@ ENV HOME /home/ghc
 WORKDIR /home/ghc
 USER ghc
 
-ENV PATH /opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:/opt/ghc/7.8.4/bin:$PATH 
+ENV PATH /opt/ghc/7.8.4/bin:$PATH 
