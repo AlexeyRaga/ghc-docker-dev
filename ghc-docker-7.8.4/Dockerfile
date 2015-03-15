@@ -39,22 +39,8 @@ RUN apt-get update \
  && apt-get clean \
  && /usr/local/bin/clean.sh
 
-# arc tool
-# It makes a lot more sense to run this from your host
-# RUN apt-get update \
-#  && apt-get install ${OPTS_APT} \
-#   git php5-cli php5-curl libssl-dev vim-tiny \
-#  && apt-get clean
-
-# RUN mkdir /php && cd /php \
-#  && git clone https://github.com/phacility/libphutil.git \
-#  && git clone https://github.com/phacility/arcanist.git
-
-# for building the ghc manual
-#RUN apt-get update \
-# && apt-get install -y dblatex docbook-xsl docbook-utils \
-# && apt-get clean \
-# && /usr/local/bin/clean.sh
+RUN ln -s /usr/bin/llc-3.4 /usr/bin/llc \
+ && ln -s /usr/bin/opt-3.4 /usr/bin/opt
 
 ENV LANG     C.UTF-8
 ENV LC_ALL   C.UTF-8
