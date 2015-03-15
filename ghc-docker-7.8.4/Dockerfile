@@ -28,14 +28,14 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F6F88286 \
 
 RUN apt-get update \
  && apt-get install ${OPTS_APT} \
- 			wget xz-utils git \
- 			libtinfo5 libgmp-dev ncurses-dev \
- 			autoconf automake libtool make g++ llvm-3.4-dev python bzip2 ca-certificates \
- 			ghc-7.8.4 \
- 			alex \
- 			cabal-install-1.22 \
- 			happy \
- 			sudo xutils-dev \
+            wget xz-utils git \
+            libtinfo5 libgmp-dev ncurses-dev \
+            autoconf automake libtool make g++ llvm-3.4-dev python bzip2 ca-certificates \
+            ghc-7.8.4 \
+            alex \
+            cabal-install-1.22 \
+            happy \
+            sudo xutils-dev \
  && apt-get clean \
  && /usr/local/bin/clean.sh
 
@@ -43,7 +43,7 @@ RUN apt-get update \
 # It makes a lot more sense to run this from your host
 # RUN apt-get update \
 #  && apt-get install ${OPTS_APT} \
-#  	git php5-cli php5-curl libssl-dev vim-tiny \
+#   git php5-cli php5-curl libssl-dev vim-tiny \
 #  && apt-get clean
 
 # RUN mkdir /php && cd /php \

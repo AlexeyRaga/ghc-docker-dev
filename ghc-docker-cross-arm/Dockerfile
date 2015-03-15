@@ -15,26 +15,26 @@ ENV DEBIAN_FRONTEND noninteractive
 ## custom apt-get install options
 ENV OPTS_APT        -y --force-yes --no-install-recommends
 
-RUN apt-get update \
- && apt-get install ${OPTS_APT} \
- 	libc6-i386 lib32stdc++6 lib32ncurses5 zlib1g lib32gcc1 \
+RUN sudo apt-get update \
+ && sudo apt-get install ${OPTS_APT} \
+    libc6-i386 lib32stdc++6 lib32ncurses5 zlib1g lib32gcc1
 
 RUN \
- 	mkdir -p /opt/toolchain \
- 	&& wget http://dn.odroid.com/toolchains/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz \
-  	&& tar xJf gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz -C /opt/toolchain \
-  	&& rm *.tar.xz \
-  	&& ln -s /opt/toolchain/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux /opt/toolchain/gcc-linaro-arm-linux-gnueabihf
+    sudo mkdir -p /opt/toolchain \
+    && wget http://dn.odroid.com/toolchains/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz \
+    && sudo tar xJf gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz -C /opt/toolchain \
+    && rm *.tar.xz \
+    && sudo ln -s /opt/toolchain/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux /opt/toolchain/gcc-linaro-arm-linux-gnueabihf
 
 RUN \
-	export PATH=/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH \
-	&& mkdir -p /opt/toolchain/ncurses \
-	&& wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz \
-	&& tar zxf ncurses-5.9.tar.gz -C /opt/toolchain/ncurses/ \
-	&& rm *.tar.gz \
-	&& cd /opt/toolchain/ncurses/ncurses-5.9 \
-	&& ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --with-shared --host=arm-linux-gnueabihf --with-build-cpp=arm-linux-gnueabihf-g++ --prefix=/opt/arm \
-	&& make && make install
+    export PATH=/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH \
+    && sudo mkdir -p /opt/toolchain/ncurses \
+    && wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz \
+    && sudo tar zxf ncurses-5.9.tar.gz -C /opt/toolchain/ncurses/ \
+    && rm *.tar.gz \
+    && cd /opt/toolchain/ncurses/ncurses-5.9 \
+    && sudo ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --with-shared --host=arm-linux-gnueabihf --with-build-cpp=arm-linux-gnueabihf-g++ --prefix=/opt/arm \
+    && sudo make && sudo make install
 
 
 ENV PATH /opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH 

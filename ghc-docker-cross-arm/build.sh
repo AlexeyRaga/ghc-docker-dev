@@ -1,3 +1,3 @@
 #!/bin/bash -e
 
-sudo docker build -t ghc-docker-cross-arm .
+sudo docker build -t alexeyraga/ghc-docker-cross-arm .
