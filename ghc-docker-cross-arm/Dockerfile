@@ -40,7 +40,7 @@ RUN \
 ADD ./build-ghc.sh /opt/ghc-cross/build-ghc.sh
 
 RUN \
-    export PATH=/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH
+    export PATH=/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH \
     && wget https://www.haskell.org/ghc/dist/7.8.4/ghc-7.8.4-src.tar.bz2 \
     && sudo tar xf ghc-7.8.4-src.tar.bz2 -C /opt/ghc-cross \
     && rm *.tar.bz2
