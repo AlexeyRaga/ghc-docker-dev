@@ -37,13 +37,19 @@ RUN \
 #     && sudo ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --with-shared --host=arm-linux-gnueabihf --with-build-cpp=arm-linux-gnueabihf-g++ --prefix=/opt/arm \
 #     && sudo make && sudo make install
 
-ADD ./build-ghc.sh /opt/ghc-cross/build-ghc.sh
+ADD ./build-ghc.sh //ghc-cross/build-ghc.sh
 
 RUN \
     export PATH=/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH \
     && wget https://www.haskell.org/ghc/dist/7.8.4/ghc-7.8.4-src.tar.bz2 \
-    && sudo tar xf ghc-7.8.4-src.tar.bz2 -C /opt/ghc-cross \
+    && sudo tar xf ghc-7.8.4-src.tar.bz2 \
     && rm *.tar.bz2 \
-    && sudo sh /opt/ghc-cross/build-ghc.sh
+    && cd ghc-7.8.4 \
+    && sed -i 's/^PACKAGES_STAGE1 += terminfo$/\#\0/g' ghc.mk \
+    && sed -i 's/^PACKAGES_STAGE1 += haskeline$/\#\0/g' ghc.mk \
+    && cp mk/build.mk.sample mk/build.mk \
+    && sed -i 's/^#\(BuildFlavour *= *quick-cross\)$/\1/g' mk/build.mk \
+    && ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --enable-unregistered \
+    && make
 
 ENV PATH /opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH 
