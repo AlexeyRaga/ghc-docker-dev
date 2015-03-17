@@ -37,8 +37,6 @@ RUN \
 #     && sudo ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --with-shared --host=arm-linux-gnueabihf --with-build-cpp=arm-linux-gnueabihf-g++ --prefix=/opt/arm \
 #     && sudo make && sudo make install
 
-#ADD ./build-ghc.sh //ghc-cross/build-ghc.sh
-
 RUN \
     export PATH=/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH \
     && wget https://www.haskell.org/ghc/dist/7.8.4/ghc-7.8.4-src.tar.bz2 \
@@ -53,7 +51,12 @@ RUN \
     && sed -i 's/^GhcStage1HcOpts *= .*$/GhcStage1HcOpts = -O -fasm/g' mk/build.mk \
     && sed -i 's/^GhcStage2HcOpts *= .*$/GhcStage2HcOpts = -O2 -fasm/g' mk/build.mk \
     && sed -i 's/^GhcLibHcOpts *= .*$/GhcLibHcOpts = -O2/g' mk/build.mk \
-    && ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --enable-unregistered \
-    && make
+    && ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --prefix=/opt/ghc-cross-7.8.4 \
+    && make && sudo make install \
+    && rm -rf ghc-7.8.4 \
+    && sudo rm /opt/ghc-cross-7.8.4/bin/ghci* /opt/ghc-cross-7.8.4/bin/run* \
+    && sudo ln -s /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runghc-7.8.4 /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runghc \
+    && sudo ln -s /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runhaskell /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runghc
 
-ENV PATH /opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH 
+
+ENV PATH /opt/ghc-cross-7.8.4/bin:/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH 
