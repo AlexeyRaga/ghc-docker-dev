@@ -37,7 +37,7 @@ RUN \
 #     && sudo ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --with-shared --host=arm-linux-gnueabihf --with-build-cpp=arm-linux-gnueabihf-g++ --prefix=/opt/arm \
 #     && sudo make && sudo make install
 
-ADD ./build-ghc.sh //ghc-cross/build-ghc.sh
+#ADD ./build-ghc.sh //ghc-cross/build-ghc.sh
 
 RUN \
     export PATH=/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH \
@@ -49,6 +49,10 @@ RUN \
     && sed -i 's/^PACKAGES_STAGE1 += haskeline$/\#\0/g' ghc.mk \
     && cp mk/build.mk.sample mk/build.mk \
     && sed -i 's/^#\(BuildFlavour *= *quick-cross\)$/\1/g' mk/build.mk \
+    && sed -i 's/^SRC_HC_OPTS *= .*$/SRC_HC_OPTS = -O -H64m/g' mk/build.mk \
+    && sed -i 's/^GhcStage1HcOpts *= .*$/GhcStage1HcOpts = -O -fasm/g' mk/build.mk \
+    && sed -i 's/^GhcStage2HcOpts *= .*$/GhcStage2HcOpts = -O2 -fasm/g' mk/build.mk \
+    && sed -i 's/^GhcLibHcOpts *= .*$/GhcLibHcOpts = -O2/g' mk/build.mk \
     && ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --enable-unregistered \
     && make
 
