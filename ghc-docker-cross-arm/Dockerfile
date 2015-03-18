@@ -56,7 +56,7 @@ RUN \
     && rm -rf ghc-7.8.4 \
     && sudo rm /opt/ghc-cross-7.8.4/bin/ghci* /opt/ghc-cross-7.8.4/bin/run* \
     && sudo ln -s /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runghc-7.8.4 /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runghc \
-    && sudo ln -s /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runhaskell /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runghc
+    && sudo ln -s /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runghc /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runhaskell
 
 
 ENV PATH /opt/ghc-cross-7.8.4/bin:/opt/toolchain/gcc-linaro-arm-linux-gnueabihf/bin:$PATH 
