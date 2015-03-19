@@ -53,7 +53,7 @@ RUN \
     && sed -i 's/^GhcLibHcOpts *= .*$/GhcLibHcOpts = -O2/g' mk/build.mk \
     && ./configure --target=arm-linux-gnueabihf --with-gcc=arm-linux-gnueabihf-gcc --prefix=/opt/ghc-cross-7.8.4 \
     && make && sudo make install \
-    && rm -rf ghc-7.8.4 \
+    && cd .. && rm -rf ghc-7.8.4 \
     && sudo rm /opt/ghc-cross-7.8.4/bin/ghci* /opt/ghc-cross-7.8.4/bin/run* \
     && sudo ln -s /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runghc-7.8.4 /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runghc \
     && sudo ln -s /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runghc /opt/ghc-cross-7.8.4/bin/arm-unknown-linux-gnueabihf-runhaskell
