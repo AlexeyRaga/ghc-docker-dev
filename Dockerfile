@@ -1,6 +1,6 @@
 # mount the GHC source code into /home/ghc
 #
-#    sudo docker run --rm -i -t -v `pwd`:/home/ghc alexeyraga/ghc-docker-dev /bin/bash
+#    sudo docker run --rm -i -t -v `pwd`:/home/ghc alexeyraga/ghc-dev /bin/bash
 #
 # darinmorrison/haskell
 # Look here on how to kick off your first build:
