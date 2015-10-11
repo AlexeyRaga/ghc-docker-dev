@@ -25,7 +25,7 @@ RUN apt-get update \
  && apt-get install ${OPTS_APT} \
             wget xz-utils git \
             patch less \
-            ghc-7.8.4 \
+            ghc \
             alex cabal-install happy \
             sudo \
  && apt-get clean \
