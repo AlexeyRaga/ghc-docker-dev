@@ -23,7 +23,7 @@ RUN chown root.root /usr/local/bin/clean.sh && chmod 700 /usr/local/bin/clean.sh
 
 RUN apt-get update \
  && apt-get install ${OPTS_APT} \
-            wget xz-utils git \
+            wget bzip2 xz-utils git \
             patch less \
             ghc \
             alex cabal-install happy \
