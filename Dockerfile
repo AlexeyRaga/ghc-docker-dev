@@ -20,27 +20,16 @@ ADD ./02nocache /etc/apt/apt.conf.d/02nocache
 ADD ./clean.sh /usr/local/bin/clean.sh
 RUN chown root.root /usr/local/bin/clean.sh && chmod 700 /usr/local/bin/clean.sh
 
-## add ppa for ubuntu trusty haskell packages
-# from darinmorrison/haskell
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F6F88286 \
- && echo 'deb     http://ppa.launchpad.net/hvr/ghc/ubuntu trusty main' >> /etc/apt/sources.list.d/haskell.list \
- && echo 'deb-src http://ppa.launchpad.net/hvr/ghc/ubuntu trusty main' >> /etc/apt/sources.list.d/haskell.list
 
 RUN apt-get update \
  && apt-get install ${OPTS_APT} \
             wget xz-utils git \
-            libtinfo5 libgmp-dev ncurses-dev \
-            autoconf automake libtool make g++ llvm-3.4-dev python bzip2 ca-certificates \
+            patch less \
             ghc-7.8.4 \
-            alex \
-            cabal-install-1.22 \
-            happy \
-            sudo xutils-dev \
+            alex cabal-install happy \
+            sudo \
  && apt-get clean \
  && /usr/local/bin/clean.sh
-
-RUN ln -s /usr/bin/llc-3.4 /usr/bin/llc \
- && ln -s /usr/bin/opt-3.4 /usr/bin/opt
 
 ENV LANG     C.UTF-8
 ENV LC_ALL   C.UTF-8
@@ -52,4 +41,3 @@ ENV HOME /home/ghc
 WORKDIR /home/ghc
 USER ghc
 
-ENV PATH /opt/ghc/7.8.4/bin:$PATH 
