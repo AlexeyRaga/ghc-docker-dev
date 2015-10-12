@@ -25,7 +25,7 @@ RUN apt-get update \
  && apt-get install ${OPTS_APT} \
             wget bzip2 xz-utils git \
             patch less \
-            make ghc \
+            make ghc llvm \
             alex cabal-install happy \
             sudo \
  && apt-get clean \
